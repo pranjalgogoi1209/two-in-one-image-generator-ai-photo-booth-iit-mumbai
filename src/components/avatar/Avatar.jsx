@@ -5,6 +5,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate, Link } from "react-router-dom";
 
+import { uploadImage } from "../../utils/uploadFirebase";
+
 import { cardsArr } from "../../utils/cardsArr";
 import { originalImgsArr } from "../../utils/originalImgsArr";
 import { base64 } from "../../utils/base64";
@@ -42,8 +44,8 @@ export default function Avatar({
   };
 
   // image uploading on server
-  const getUrl = (url) => {
-    axios
+  const getUrl = async (base64OutputData) => {
+    /*  axios
       .post(
         "https://adp24companyday.com/aiphotobooth/aiphotobooth_comiccon/upload.php",
         {
@@ -56,7 +58,16 @@ export default function Avatar({
       })
       .catch(function (error) {
         console.log(error);
-      });
+      }); */
+
+    // firebase
+    try {
+      let outputUrl = await uploadImage(base64OutputData);
+      // console.log(output);
+      setUrl(outputUrl);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   // submitting the selected image and post request to api
@@ -67,7 +78,7 @@ export default function Avatar({
     setPrintImage("");
     if (capturedImage) {
       base64(originalImg, (base64Data) => {
-        console.log("Base64 data:", base64Data);
+        // console.log("Base64 data:", base64Data);
         setSelectedImage(base64Data);
 
         try {
@@ -78,7 +89,7 @@ export default function Avatar({
               status: "PREMIUM",
             })
             .then(function (response) {
-              console.log(response, "response from swap server");
+              // console.log(response, "response from swap server");
               setGeneratedImg(`data:image/webp;base64,${response.data.result}`);
               setPrintImage(`data:image/webp;base64,${response.data.result}
               `);

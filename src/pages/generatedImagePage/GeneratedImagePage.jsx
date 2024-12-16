@@ -9,6 +9,8 @@ import { MdModeEditOutline } from "react-icons/md";
 import { FaWandMagicSparkles } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 
+import { uploadImage } from "../../utils/uploadFirebase";
+
 import Avatar from "../../components/avatar/Avatar";
 import useCropFace from "../../customHooks/useCrop";
 
@@ -43,27 +45,33 @@ export default function GeneratedImagePage({
       };
       let res = await useCropFace(payloadImg, setIsLoading);
       setMetaData(res.metaData);
-      console.log(res);
+      // console.log(res);
     };
     cropImage();
   }, []);
 
   // image uploading on server
-  const getUrl = (url) => {
-    axios
-      .post(
-        "https://analytiq4.com/aiphotobooth/aiphotobooth_bluehat/upload.php",
-        {
-          img: url,
-        }
-      )
-      .then(function (response) {
-        setUrl(response.data.url);
-        console.log("image uploaded on server");
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+  const getUrl = async (base64OutputData) => {
+    // axios
+    //   .post("https://techkilla.in/aiphotobooth/aiphotobooth_ifest/upload.php", {
+    //     img: url,
+    //   })
+    //   .then(function (response) {
+    //     setUrl(response.data.url);
+    //     // console.log("image uploaded on server");
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
+
+    // firebase
+    try {
+      let outputUrl = await uploadImage(base64OutputData);
+      // console.log(output);
+      setUrl(outputUrl);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   // image generator api calling
@@ -76,7 +84,7 @@ export default function GeneratedImagePage({
         toastOptions
       );
     } else {
-      console.log("form submitted");
+      // console.log("form submitted");
       setGeneratedImg("");
       setPrintImage("");
       axios
@@ -86,7 +94,7 @@ export default function GeneratedImagePage({
           style: "realistic",
         })
         .then(function (response) {
-          console.log(response);
+          // console.log(response);
           setGeneratedImg(`data:image/webp;base64,${response.data.result}
           `);
           setPrintImage(`data:image/webp;base64,${response.data.result}

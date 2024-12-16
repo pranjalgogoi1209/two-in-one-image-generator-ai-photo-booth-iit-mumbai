@@ -27,7 +27,7 @@
       outline: 0;
       padding: 1vw;
       font-size: 2vw;
-      font-weight: 600;
+      font-weight: 500;
       border-radius: 2vw;
       border: 0.2vw solid #000 !important;
     }
@@ -63,7 +63,7 @@
   .Email {
     .container {
       width: 50%;
-      height: 65%;
+      height: 50%;
       gap: 4vw;
       padding: 2vw;
       border-radius: 2vw;
@@ -71,8 +71,8 @@
         border: 0.2vw solid var(--themeColor);
         padding: 1vw 2vw;
         width: 90%;
-        font-size: 2vw;
-        border-radius: 1vw;
+        font-size: 1.5vw;
+        border-radius: 0.5vw;
       }
 
       .imgContainer {
@@ -86,7 +86,7 @@
 
       .close {
         right: -4vw;
-        font-size: 3.5vw;
+        font-size: 3vw;
       }
 
       .loader {

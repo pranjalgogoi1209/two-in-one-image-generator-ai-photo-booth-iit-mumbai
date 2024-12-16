@@ -29,7 +29,7 @@ export default function Email({ setShowEmail, url, prompt }) {
     borderColor: "red",
   };
 
-  const onKeyPress = button => {
+  const onKeyPress = (button) => {
     console.log("Button pressed", button);
     /**
      * If you want to handle the shift and caps lock buttons
@@ -45,7 +45,7 @@ export default function Email({ setShowEmail, url, prompt }) {
       : setKeyboardLayout("default");
   };
 
-  const onChangeInput = event => {
+  const onChangeInput = (event) => {
     const input = event.target.value;
 
     setUserEmail(input);
@@ -68,7 +68,7 @@ export default function Email({ setShowEmail, url, prompt }) {
         setTimeout(() => {
           axios
             .post(
-              "https://adp24companyday.com/aiphotobooth/aiphotobooth_godrej_ai_prompt/emailer/index.php",
+              "https://techkilla.in/aiphotobooth/aiphotobooth_iit_mumbai/emailer/index.php",
               {
                 email: userEmail,
                 url: url,
@@ -98,7 +98,7 @@ export default function Email({ setShowEmail, url, prompt }) {
     <div className={styles.Email} onClick={() => setShowEmail(false)}>
       <div
         className={styles.container}
-        onClick={e => {
+        onClick={(e) => {
           e.stopPropagation();
         }}
       >
@@ -106,7 +106,7 @@ export default function Email({ setShowEmail, url, prompt }) {
           type="mail"
           value={userEmail}
           placeholder="Enter your email"
-          onChange={e => setUserEmail(e.target.value)}
+          onChange={(e) => setUserEmail(e.target.value)}
           className={styles.input}
         />
         {/*  <Keyboard
